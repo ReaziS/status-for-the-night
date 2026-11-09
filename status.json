@@ -1,0 +1,53 @@
+{
+  "updatedAt": "2026-11-09T15:11:00Z",
+  "incidents": [
+    {
+      "id": "3715",
+      "line": "sched-prod",
+      "opened": "2026-09-14T03:46:00Z",
+      "closed": "2026-09-14T04:04:00Z",
+      "what": "schedule rebuild",
+      "author": "—"
+    },
+    {
+      "id": "3714",
+      "line": "tram 3",
+      "opened": "2026-09-14T02:35:00Z",
+      "closed": "2026-09-14T02:49:00Z",
+      "what": "platform display lag",
+      "author": "night shift"
+    },
+    {
+      "id": "3713",
+      "line": "bus 14",
+      "opened": "2026-09-14T01:25:00Z",
+      "closed": "2026-09-14T01:41:00Z",
+      "what": "gps gaps",
+      "author": "on-call"
+    },
+    {
+      "id": "3712",
+      "line": "night bus N2",
+      "opened": "2026-09-14T00:15:00Z",
+      "closed": "2026-09-14T00:33:00Z",
+      "what": "rota sync retries",
+      "author": "night shift"
+    },
+    {
+      "id": "3711",
+      "line": "tram 3",
+      "opened": "2026-09-13T22:50:00Z",
+      "closed": "2026-09-13T23:06:00Z",
+      "what": "board refresh stuck",
+      "author": "on-call"
+    },
+    {
+      "id": "3710",
+      "line": "bus 14",
+      "opened": "2026-09-12T23:40:00Z",
+      "closed": "2026-09-12T23:52:00Z",
+      "what": "depot sensor reset",
+      "author": "night shift"
+    }
+  ]
+}

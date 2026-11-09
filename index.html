@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>status for the night</title>
+<style>
+:root{--violet:#6f55c9;--ink:#1c1b22;--mute:#5b5966;--line:#e4e2ea;--bg:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#eceaf2;--mute:#a9a6b6;--line:#34323f;--bg:#15141b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.banner{background:var(--violet);color:#fff;padding:16px 20px;font-weight:600}
+main{max-width:860px;margin:0 auto;padding:24px 16px 48px}
+h1{margin:0 0 4px;font-size:1.7rem}
+.note{margin:0 0 20px;color:var(--mute)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td:nth-child(5){white-space:normal}
+th{color:var(--mute);font-weight:600}
+footer{margin-top:20px;color:var(--mute);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="banner" role="status">Some services had problems overnight.</div>
+<main>
+<h1>status for the night</h1>
+<p class="note">read on every tram 3 board</p>
+<div class="wrap">
+<table>
+<thead><tr><th>date</th><th>opened</th><th>closed</th><th>line</th><th>what</th><th>ran by</th></tr></thead>
+<tbody id="rows">
+<tr><td>14/09</td><td>03:46</td><td>04:04</td><td>sched-prod</td><td>schedule rebuild</td><td>unassigned</td></tr>
+<tr><td>14/09</td><td>02:35</td><td>02:49</td><td>tram 3</td><td>platform display lag</td><td>night shift</td></tr>
+<tr><td>14/09</td><td>01:25</td><td>01:41</td><td>bus 14</td><td>gps gaps</td><td>on-call</td></tr>
+<tr><td>14/09</td><td>00:15</td><td>00:33</td><td>night bus N2</td><td>rota sync retries</td><td>night shift</td></tr>
+<tr><td>13/09</td><td>22:50</td><td>23:06</td><td>tram 3</td><td>board refresh stuck</td><td>on-call</td></tr>
+<tr><td>12/09</td><td>23:40</td><td>23:52</td><td>bus 14</td><td>depot sensor reset</td><td>night shift</td></tr>
+</tbody>
+</table>
+</div>
+<footer>All times UTC. Dates are day/month. Updated <time id="upd">2026-11-09T15:11:00Z</time>. Data: <a href="status.json">status.json</a></footer>
+</main>
+<script>
+(function(){
+  var FEED="https://hq.mega.dev/challenges/status-for-the-night/api/incidents/2b04e228c66a";
+  function p(n){return String(n).padStart(2,"0")}
+  function author(a){a=(a||"").trim();return a&&a!=="—"?a:"unassigned"}
+  function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+  function render(d){
+    var rows=d.incidents.slice().sort(function(a,b){return a.opened<b.opened?1:-1});
+    document.getElementById("rows").innerHTML=rows.map(function(r){
+      return "<tr><td>"+r.opened.slice(8,10)+"/"+r.opened.slice(5,7)+"</td><td>"+r.opened.slice(11,16)+"</td><td>"+r.closed.slice(11,16)+"</td><td>"+esc(r.line)+"</td><td>"+esc(r.what)+"</td><td>"+esc(author(r.author))+"</td></tr>";
+    }).join("");
+    document.getElementById("upd").textContent=d.updatedAt;
+  }
+  function load(){fetch(FEED).then(function(r){return r.json()}).then(render).catch(function(){})}
+  setInterval(load,60000);load();
+})();
+</script>
+</body>
+</html>
